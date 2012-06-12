@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.drewhamlett.jsbeautify
+OpenIDE-Module-Localizing-Bundle: com/drewhamlett/jsbeautify/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
