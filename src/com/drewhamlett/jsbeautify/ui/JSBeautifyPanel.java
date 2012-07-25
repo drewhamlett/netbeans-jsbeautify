@@ -27,6 +27,13 @@ final class JSBeautifyPanel extends javax.swing.JPanel {
 
         useTabs = new javax.swing.JCheckBox();
         preserveNewLines = new javax.swing.JCheckBox();
+        spaceBeforeConditional = new javax.swing.JCheckBox();
+        braceStyle = new javax.swing.JComboBox();
+        braceStyleLabel = new javax.swing.JLabel();
+        indentCase = new javax.swing.JCheckBox();
+        jslintHappy = new javax.swing.JCheckBox();
+        indentSize = new javax.swing.JComboBox();
+        indentSizeLabel = new javax.swing.JLabel();
 
         org.openide.awt.Mnemonics.setLocalizedText(useTabs, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.useTabs.text")); // NOI18N
         useTabs.addActionListener(new java.awt.event.ActionListener() {
@@ -37,6 +44,31 @@ final class JSBeautifyPanel extends javax.swing.JPanel {
 
         org.openide.awt.Mnemonics.setLocalizedText(preserveNewLines, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.preserveNewLines.text")); // NOI18N
 
+        org.openide.awt.Mnemonics.setLocalizedText(spaceBeforeConditional, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.spaceBeforeConditional.text")); // NOI18N
+        spaceBeforeConditional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spaceBeforeConditionalActionPerformed(evt);
+            }
+        });
+
+        braceStyle.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "collapse", "expand" }));
+        braceStyle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                braceStyleActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(braceStyleLabel, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.braceStyleLabel.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(indentCase, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.indentCase.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jslintHappy, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.jslintHappy.text")); // NOI18N
+
+        indentSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "8" }));
+        indentSize.setSelectedIndex(1);
+
+        org.openide.awt.Mnemonics.setLocalizedText(indentSizeLabel, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.indentSizeLabel.text")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -44,35 +76,92 @@ final class JSBeautifyPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(preserveNewLines)
-                    .addComponent(useTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(511, Short.MAX_VALUE))
+                    .addComponent(jslintHappy)
+                    .addComponent(indentCase)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spaceBeforeConditional)
+                            .addComponent(preserveNewLines)
+                            .addComponent(useTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(braceStyle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(indentSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(indentSizeLabel)
+                            .addComponent(braceStyleLabel))))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(useTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(preserveNewLines)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(useTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(braceStyle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(braceStyleLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(preserveNewLines)
+                        .addGap(18, 18, 18)
+                        .addComponent(spaceBeforeConditional)
+                        .addGap(18, 18, 18)
+                        .addComponent(indentCase)
+                        .addGap(18, 18, 18)
+                        .addComponent(jslintHappy))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(indentSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(indentSizeLabel))))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 	private void useTabsActionPerformed( java.awt.event.ActionEvent evt ) {//GEN-FIRST:event_useTabsActionPerformed
-		// TODO add your handling code here:
+		if ( useTabs.isSelected() ) {
+			indentSize.setEnabled( false );
+		} else {
+			indentSize.setEnabled( true );
+		}
 	}//GEN-LAST:event_useTabsActionPerformed
+
+	private void spaceBeforeConditionalActionPerformed( java.awt.event.ActionEvent evt ) {//GEN-FIRST:event_spaceBeforeConditionalActionPerformed
+		// TODO add your handling code here:
+	}//GEN-LAST:event_spaceBeforeConditionalActionPerformed
+
+	private void braceStyleActionPerformed( java.awt.event.ActionEvent evt ) {//GEN-FIRST:event_braceStyleActionPerformed
+		// TODO add your handling code here:
+	}//GEN-LAST:event_braceStyleActionPerformed
 
 	void load() {
 
 		preserveNewLines.setSelected( JSBeautifyOptions.getInstance().getOption( "preserveNewLines", true ) );
 		useTabs.setSelected( JSBeautifyOptions.getInstance().getOption( "useTabs", false ) );
+		spaceBeforeConditional.setSelected( JSBeautifyOptions.getInstance().getOption( "spaceBeforeConditional", true ) );
+		jslintHappy.setSelected( JSBeautifyOptions.getInstance().getOption( "jslintHappy", false ) );
+		indentCase.setSelected( JSBeautifyOptions.getInstance().getOption( "indentCase", false ) );
+		indentSize.setSelectedIndex( JSBeautifyOptions.getInstance().getOption( "indentSize", 1 ) );
+		braceStyle.setSelectedItem( JSBeautifyOptions.getInstance().getOption( "braceStyle", "collapse" ) );
+
+		if ( useTabs.isSelected() ) {
+			indentSize.setEnabled( false );
+		} else {
+			indentSize.setEnabled( true );
+		}
 	}
 
 	void store() {
 
 		JSBeautifyOptions.getInstance().setOption( "preserveNewLines", preserveNewLines.isSelected() );
 		JSBeautifyOptions.getInstance().setOption( "useTabs", useTabs.isSelected() );
+		JSBeautifyOptions.getInstance().setOption( "spaceBeforeConditional", spaceBeforeConditional.isSelected() );
+		JSBeautifyOptions.getInstance().setOption( "jslintHappy", jslintHappy.isSelected() );
+		JSBeautifyOptions.getInstance().setOption( "indentCase", indentCase.isSelected() );
+		JSBeautifyOptions.getInstance().setOption( "indentSize",  indentSize.getSelectedIndex() );
+		JSBeautifyOptions.getInstance().setOption( "braceStyle", braceStyle.getSelectedItem().toString() );
 	}
 
 	boolean valid() {
@@ -80,7 +169,14 @@ final class JSBeautifyPanel extends javax.swing.JPanel {
 		return true;
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox braceStyle;
+    private javax.swing.JLabel braceStyleLabel;
+    private javax.swing.JCheckBox indentCase;
+    private javax.swing.JComboBox indentSize;
+    private javax.swing.JLabel indentSizeLabel;
+    private javax.swing.JCheckBox jslintHappy;
     private javax.swing.JCheckBox preserveNewLines;
+    private javax.swing.JCheckBox spaceBeforeConditional;
     private javax.swing.JCheckBox useTabs;
     // End of variables declaration//GEN-END:variables
 }

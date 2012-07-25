@@ -35,7 +35,8 @@ id = "com.drewhamlett.jsbeautify.JSBeautify" )
 @ActionReferences( {
 	@ActionReference( path = "Menu/Source", position = 200 ),
 	@ActionReference( path = "Loaders/text/javascript/Actions", position = 0 ),
-	@ActionReference( path = "Editors/text/javascript/Popup", position = 400, separatorAfter = 450 )
+	@ActionReference( path = "Editors/text/javascript/Popup", position = 400, separatorAfter = 450 ),
+	@ActionReference( path = "Editors/text/x-json/Popup", position = 400, separatorAfter = 450 )
 } )
 @Messages( "CTL_JSBeautify=JSBeautify" )
 public final class JSBeautify implements ActionListener {
@@ -73,8 +74,6 @@ public final class JSBeautify implements ActionListener {
 
 			reformat.lock();
 
-
-
 			try {
 
 				NbDocument.runAtomic( doc, new Runnable() {
@@ -84,6 +83,7 @@ public final class JSBeautify implements ActionListener {
 
 						try {
 
+							reformat.reformat( 0, doc.getLength() );
 							Context context = Context.enter();
 							context.setLanguageVersion( Context.VERSION_1_6 );
 							ScriptableObject scope = context.initStandardObjects();
@@ -95,19 +95,39 @@ public final class JSBeautify implements ActionListener {
 							context.evaluateReader( scope, reader, "Beautify", 1, null );
 							Function fct = ( Function ) scope.get( "js_beautify", scope );
 
-							boolean preserveNewLines = JSBeautifyOptions.getInstance().getOption( "preserveNewLines" );
-							boolean useTabs = JSBeautifyOptions.getInstance().getOption( "useTabs" );
-
+							boolean preserveNewLines = JSBeautifyOptions.getInstance().getOption( "preserveNewLines", true );
+							boolean useTabs = JSBeautifyOptions.getInstance().getOption( "useTabs", false );
+							boolean spaceBeforeConditional = JSBeautifyOptions.getInstance().getOption( "spaceBeforeConditional", true );
+							boolean jslintHappy = JSBeautifyOptions.getInstance().getOption( "jslintHappy", false );
+							boolean indentCase = JSBeautifyOptions.getInstance().getOption( "indentCase", false );
+							int indentSize = JSBeautifyOptions.getInstance().getOption( "indentSize", 1 );
+							String braceStyle = JSBeautifyOptions.getInstance().getOption( "braceStyle", "collapse" );
 
 							NativeObject properties = new NativeObject();
-							
-							if(useTabs) {
+
+							if ( useTabs ) {
 								properties.defineProperty( "indent_char", "\t", NativeObject.READONLY );
 								properties.defineProperty( "indent_size", 1, NativeObject.READONLY );
-							} 							
-							
+							} else {
+								int size = 4;
+								if ( indentSize == 0 ) {
+									size = 2;
+								} else if ( indentSize == 1 ) {
+									size = 4;
+								} else {
+									size = 8;
+								}
+								properties.defineProperty( "indent_size", size, NativeObject.READONLY );
+							}
+
 							properties.defineProperty( "preserve_newlines", preserveNewLines, NativeObject.READONLY );
 							properties.defineProperty( "max_preserve_newlines", false, NativeObject.READONLY );
+							properties.defineProperty( "jslint_happy", jslintHappy, NativeObject.READONLY );
+							properties.defineProperty( "space_before_conditional", spaceBeforeConditional, NativeObject.READONLY );
+							properties.defineProperty( "indent_case", indentCase, NativeObject.READONLY );
+
+							properties.defineProperty( "brace_style", braceStyle, NativeObject.READONLY );
+
 
 							Object result = fct.call( context, scope, scope, new Object[]{ unformattedText, properties } );
 
