@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.drewhamlett.jsbeautify;
 
-import com.drewhamlett.jsbeautify.ui.JSBeautifyOptionsPanelController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -27,7 +22,6 @@ import org.openide.loaders.DataObject;
 import org.openide.text.NbDocument;
 import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
-import org.openide.util.NbPreferences;
 
 @ActionID( category = "Build",
 id = "com.drewhamlett.jsbeautify.JSBeautify" )
@@ -56,7 +50,7 @@ public final class JSBeautify implements ActionListener {
 			FileObject file = dataObject.getPrimaryFile();
 			format( file );
 
-		} catch ( BadLocationException ex ) {
+		} catch (BadLocationException ex) {
 			Exceptions.printStackTrace( ex );
 		}
 	}
@@ -77,7 +71,6 @@ public final class JSBeautify implements ActionListener {
 			try {
 
 				NbDocument.runAtomic( doc, new Runnable() {
-
 					@Override
 					public void run() {
 
@@ -139,13 +132,13 @@ public final class JSBeautify implements ActionListener {
 
 							try {
 								openedPanes[0].setCaretPosition( pos );
-							} catch ( Exception e ) {
+							} catch (Exception e) {
 								openedPanes[0].setCaretPosition( doc.getLength() );
 							}
 
-						} catch ( BadLocationException ex ) {
+						} catch (BadLocationException ex) {
 							Exceptions.printStackTrace( ex );
-						} catch ( IOException ex ) {
+						} catch (IOException ex) {
 							Exceptions.printStackTrace( ex );
 						}
 					}
@@ -157,7 +150,7 @@ public final class JSBeautify implements ActionListener {
 
 			ec.saveDocument();
 
-		} catch ( IOException ex ) {
+		} catch (IOException ex) {
 			Exceptions.printStackTrace( ex );
 		} finally {
 		}

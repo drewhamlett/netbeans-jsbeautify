@@ -63,9 +63,13 @@ final class JSBeautifyPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(indentCase, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.indentCase.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jslintHappy, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.jslintHappy.text")); // NOI18N
+        jslintHappy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jslintHappyActionPerformed(evt);
+            }
+        });
 
-        indentSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "4", "8" }));
-        indentSize.setSelectedIndex(1);
+        indentSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "3", "4", "8" }));
 
         org.openide.awt.Mnemonics.setLocalizedText(indentSizeLabel, org.openide.util.NbBundle.getMessage(JSBeautifyPanel.class, "JSBeautifyPanel.indentSizeLabel.text")); // NOI18N
 
@@ -135,6 +139,10 @@ final class JSBeautifyPanel extends javax.swing.JPanel {
 	private void braceStyleActionPerformed( java.awt.event.ActionEvent evt ) {//GEN-FIRST:event_braceStyleActionPerformed
 		// TODO add your handling code here:
 	}//GEN-LAST:event_braceStyleActionPerformed
+
+    private void jslintHappyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jslintHappyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jslintHappyActionPerformed
 
 	void load() {
 

@@ -1,3 +1,5 @@
 /build/
 /nbproject/private/
 /release/
+
+.DS_Store
